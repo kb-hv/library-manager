@@ -1,5 +1,7 @@
 # An app for librarians
 
+#### Tech - Python, Flask, SQLite, SQLAlchemy, Jinja, HTML, Bootstrap
+
 ### Functions
 - Import books from API
 - Add additional copies of the book
