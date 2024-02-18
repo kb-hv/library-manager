@@ -1,12 +1,4 @@
 # An app for librarians
-- Import books from an API
-- Add additional copies of the book
-- Add members
-- Issue books (when due < 500)
-- Return books
-- Search for books
-- Charge rent fee
-
 
 ### Functions
 - Import books from API
