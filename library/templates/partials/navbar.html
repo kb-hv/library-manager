@@ -1,0 +1,21 @@
+<nav class="navbar navbar-expand-lg bg-body-tertiary navbar-dark bg-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Library Management</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar"
+      aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  <div class="collapse navbar-collapse" id="navbar">
+    <div class="navbar-nav">
+      {% if user.is_authenticated %}
+      <a class="nav-item nav-link" id="home" href="/">Library books</a>
+      <a class="nav-item nav-link" id="import-books" href="/import-books">Import Books</a>
+      <a class="nav-item nav-link" id="import-books" href="/members">Members</a>
+      <a class="nav-item nav-link" id="logout" href="/logout">Logout</a>
+      {% else %}
+      <a class="nav-item nav-link" id="login" href="/login">Login</a>
+      <a class="nav-item nav-link" id="sign_uo" href="/sign-up">Sign up</a>
+      {% endif %}
+    </div>
+  </div>
+</nav>

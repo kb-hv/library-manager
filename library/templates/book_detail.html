@@ -1,0 +1,102 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% from "partials/book_assign_form.html" import book_assign_form %}
+{% from "partials/card.html" import card %}
+
+<div class="container m-5">
+  <div class="row">
+    <div class="col-8">
+      <table class="table table-bordered">
+        <tbody>
+          <tr>
+            <td>Book ID</td>
+            <td>{{book.book_id}}</td>
+          </tr>
+          <tr>
+            <td>Title</td>
+            <td>{{book.title}}</td>
+          </tr>
+          <tr>
+            <td>Authors</td>
+            <td>{{book.authors}}</td>
+          </tr>
+          <tr>
+            <td>Published</td>
+            <td>{{book.publication_date}}, {{book.publisher}}</td>
+          </tr>
+          <tr>
+            <td>Stock</td>
+            <td>{{book.stock}}</td>
+          </tr>
+          <tr>
+            <td>ISBN13</td>
+            <td>{{book.isbn13}}</td>
+          </tr>
+          <tr>
+            <td>Rating</td>
+            <td>{{book.average_rating}}</td>
+          </tr>
+          <tr>
+            <td>Language</td>
+            <td>{{book.language_code}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="col">
+      <form method="POST" action="/remove-book" class="mb-4">
+        <input type="number" class="form-control" name="book_id" value="{{book.id}}" style="display: none;" required>
+        <button type="submit" class="btn btn-dark">Remove book from library</button>
+      </form>
+      {% if book.stock > 0 %}
+      <div class="p-2">
+        Assign book to a user
+        {{book_assign_form('book', book.book_id, '')}}
+      </div>
+
+      {% endif %}
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <h3>Borrowed by</h3>
+
+      {% if book.members %}
+      <ol>
+        {% for member in book.members %}
+
+        {{member.email}}
+        </li>
+
+        {% endfor %}
+      </ol>
+      {% else %}
+      N/A
+      {% endif %}
+
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <h3>Transactions</h3>
+
+      {% if book.transactions %}
+      <ol>
+        {% for transaction in book.transactions %}
+
+        {{card({}, transaction, 'transaction')}}
+
+        </li>
+
+        {% endfor %}
+      </ol>
+      {% else %}
+      N/A
+      {% endif %}
+
+    </div>
+  </div>
+</div>
+
+{% endblock %}

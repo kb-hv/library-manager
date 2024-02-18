@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+{% from "partials/book_assign_form.html" import book_assign_form %}
+{% from "partials/card.html" import card %}
+{% block title %}Library member{% endblock %}
+{% block content %}
+<div class="container m-5">
+  <div class="row">
+    <div class="col-7">
+      <table class="table table-bordered">
+        <tbody>
+          <tr>
+            <td>Member ID</td>
+            <td>{{member.id}}</td>
+          </tr>
+          <tr>
+            <td>Authors</td>
+            <td>{{member.full_name}}</td>
+          </tr>
+          <tr>
+            <td>Email</td>
+            <td>{{member.email}}</td>
+          </tr>
+          <tr>
+            <td>Outstanding Due</td>
+            <td>{{member.outstanding_debt}}</td>
+          </tr>
+          {% if (member.book) %}
+          <tr>
+            <td>Current Book</td>
+            <td>{{member.book.title}}</td>
+          </tr>
+          {% endif %}
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="col">
+      <div class="pt-3">
+        {% if member.book %}
+        <form method="POST" action="/return-book">
+          <input type="number" class="form-control" name="member_id" value="{{member.id}}" style="display: none;">
+          <button type="submit" class="btn btn-dark">Return book</button>
+        </form>
+        {% else %}
+        {{book_assign_form('member', 0, member.email)}}
+        {% endif %}
+      </div>
+      <div class="pt-3">
+        <form method="POST" action="/pay-dues" class="row row-cols-lg-auto g-3 align-items-center mx-auto">
+          <div class="col-12">
+            <div class="input-group">
+              <input type="number" class="form-control" name="amount" placeholder="Enter amount" required>
+            </div>
+            <input type="number" class="form-control" name="member_id" value="{{member.id}}" style="display: none;" required>
+          </div>
+          <div class="col-12">
+            <button type="submit" class="btn btn-dark">Pay Dues</button>
+          </div>
+        </form>
+        <form method="POST" class="px-2 pt-3" action="/remove-member">
+          <input type="number" class="form-control" name="member_id" value="{{member.id}}" style="display: none;" required>
+          <button type="submit" class="btn btn-dark">Remove member</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <h3>Transactions</h3>
+      {% if member.transactions %}
+      {% for transaction in member.transactions: %}
+      {{card({}, transaction, 'transaction')}}
+      {% endfor %}
+      {% else %}
+      N/A
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+{% endblock %}

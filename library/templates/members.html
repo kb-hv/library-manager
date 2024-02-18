@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block title %} Library members{% endblock %}
+{% block content %}
+<div class="container  flex-column flex-sm-row m-auto" style="max-width: 500px;">
+  <div class="m-3 mx-auto mt-5 px-3 py-1 bg-light shadow-sm">
+
+
+    <h3>Find a member</h3>
+    <form method="GET" action="/view-member" class="m-3 row row-cols-lg-auto m-1 g-3 align-items-center mx-auto">
+      <div class="col-12">
+        <div class="input-group">
+          <input type="email" class="form-control" name="email" placeholder="Type member's email" required>
+        </div>
+      </div>
+      <div class="col-12">
+        <button type="submit" class="btn btn-dark">Find Member</button>
+      </div>
+    </form>
+  </div>
+  <div class="mx-auto mt-5 px-3 py-1 bg-light shadow-sm">
+    <form method="POST" action="/add-member" class="m-5 mx-auto row row-cols-lg-auto g-3 align-items-center">
+      <h3>Add a new member</h3>
+      <div class="input-group col-12">
+        <input type="email" class="form-control" name="email" placeholder="Enter email" required>
+      </div>
+      <div class="input-group col-12">
+        <input type="text" class="form-control" name="full_name" placeholder="Enter full name" required>
+      </div>
+      <button type="submit" class="btn btn-dark mx-2">Add Member</button>
+    </form>
+  </div>
+</div>
+
+{% endblock %}

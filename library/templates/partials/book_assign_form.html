@@ -1,0 +1,20 @@
+{% macro book_assign_form(origin, book_id, email) -%}
+
+<form method="POST" action="/assign-book" class="row row-cols-lg-auto g-3 align-items-center mx-auto">
+  <div class="col-12">
+    <div class="input-group">
+      <input type="text" class="form-control" name="origin" value={{origin}} style="display: none;" required>
+    </div>
+    <div class="input-group">
+      <input type="number" class="form-control" name="book_id" {% if (book_id !=0) %} value={{book_id}}
+        style="display: none;" {% endif %} placeholder="Enter book ID" required>
+    </div>
+    <input type="email" class="form-control" name="email" value="{{email}}" {% if (email !='' ) %} value={{email}}
+      style="display: none;" {% endif %} placeholder="Enter member email" required> 
+  </div>
+  <div class=" col-12">
+    <button type="submit" class="btn btn-dark">Assign Book</button>
+  </div>
+</form>
+
+{%- endmacro %}

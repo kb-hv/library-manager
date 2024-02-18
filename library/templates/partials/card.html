@@ -1,0 +1,89 @@
+
+{% macro card(book, transaction, page) -%}
+<div class="card m-5 w-75 mx-auto bg-light shadow-sm">
+    <span class="card-header">
+        {% if page == 'transaction' %}
+        {{ transaction.type }}
+        {% else %}
+        <b>{{book.title}}</b> by {{book.authors}}
+        {% endif %}
+    </span>
+    <div class="card-body">
+        <h5 class="card-title"></h5>
+        <div class="card-text">
+            <div class="container">
+                <div class="row">
+                    <div class="col-9">
+                        <table class="table  table-sm w-75">
+                            <tbody>
+                                
+                                {% if page == 'home' %}
+                                <tr>
+                                    <td>Book ID</td>
+                                    <td>{{book.book_id}}</td>
+                                </tr>
+                                {% endif %}
+                                {% if (page == 'import') %}
+                                <tr>
+                                    <td>Book ID</td>
+                                    <td>{{book.bookID}}</td>
+                                </tr>
+                                <tr>
+                                    <td>ISBN13</td>
+                                    <td>{{book.isbn13}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Language</td>
+                                    <td>{{book.language_code}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Rating</td>
+                                    <td>{{book.average_rating}}</td>
+                                </tr>
+                                {% elif page == 'home' %}
+                                <tr>
+                                    <td>Stock</td>
+                                    <td>{{book.stock}}</td>
+                                </tr>
+                                {% else %}
+                                <tr>
+                                    <td>Amount</td>
+                                    <td>{{transaction.amount}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Note</td>
+                                    <td>{{transaction.note}}</td>
+                                </tr>
+                                    {% endif %}
+                            </tbody>
+                        </table>
+                    </div>
+                    {% if page == 'import' %}
+                    <form class="col" method="POST" action="/add-book">
+                        <input type="text" id="book" name="book"
+                            value="{{book.bookID}};;{{book.title}};;{{book.authors}};;{{book.publisher}};;{{book.publication_date}};;{{book.isbn13}};;{{book.language_code}};;{{book.average_rating}}"
+                            style="display: none;" required />
+                        <button type="submit" class="btn btn-dark">Add to Library</button>
+                    </form>
+                    {% endif %}
+                    {% if page == 'home' %}
+                    <div class="col">
+                        <a href="/book?id={{book.book_id}}" class="btn btn-dark">View book details</a>
+                    </div>
+                    {% else %}
+                                        
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card-footer text-muted">
+        {% if page == 'transaction' %}
+        {{ transaction.date }}
+        {% else %}
+        {{book.publisher}}, {{book.publication_date}}
+        {% endif %}
+        
+    </div>
+</div>
+{%- endmacro %}

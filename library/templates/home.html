@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% from "partials/card.html" import card %}
+{% from "partials/book_search_form.html" import book_search_form %}
+
+{% block content %}
+<table class="table table-bordered m-3 w-50 mx-auto mt-5 p-5 bg-light shadow-sm">
+  <tbody>
+    <tr>
+      <td>Membership Fee</td>
+      <td>Rs. 500</td>
+    </tr>
+    <tr>
+      <td>Book Rent</td>
+      <td>Base Rs 5 + Rs 1 per day</td>
+    </tr>
+  </tbody>
+</table>
+<div class="m-3">
+  <h2 class="mx-5 px-5">Books in your library</h2>
+  {{book_search_form('/')}}
+  {% for book in books: %}
+  {{card(book, {}, 'home')}}
+  {% endfor %}
+  {% endblock %}
+</div>

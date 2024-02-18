@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% from "partials/card.html" import card %}
+{% from "partials/book_search_form.html" import book_search_form %}
+{% block title %}Import books{% endblock %}
+{% block content %}
+<h2>Add books to your library</h2>
+{{book_search_form('/import-books')}}
+{% for book in books: %}
+{{card(book, {}, 'import')}}
+{% endfor %}
+{% endblock %}
